@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Matrica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="width">
+        <div id="calculator-window"> <!--Kalkulator-->
+            <h1>Kalkulator Matrica</h1>
+            <div class="matrix-container ">
+                <div class="matrix" id="matrixA">
+                    <h4>Matrix A</h4>
+                </div>
+                <div class="matrix" id="matrixB">
+                    <h4>Matrix B</h4>
+                </div>
+            </div>
+
+            <div class="dimension-controls-container">
+                <div class="matrix-controls">
+                    <h4>Matrica A:</h4>
+                    <label class="block" for="rowsAInput">Broj redova:
+                        <input type="number" id="rowsAInput" value="3" min="1" max="10">
+                    </label>
+                    <label for="rowsA">
+                        <input type="range" id="rowsA" value="3" min="1" max="10">
+                    </label>
+
+                    <label class="block" for="colsAInput">Broj stupaca:
+                        <input type="number" id="colsAInput" value="3" min="1" max="10">
+                    </label>
+                    <label for="colsA">
+                        <input type="range" id="colsA" value="3" min="1" max="10">
+                    </label>
+                </div>
+
+                <div class="matrix-controls">
+                    <h4>Matrica B:</h4>
+                    <label class="block" for="rowsBInput">Broj redova:
+                        <input type="number" id="rowsBInput" value="3" min="1" max="10">
+                    </label>
+                    <label for="rowsB">
+                        <input type="range" id="rowsB" value="3" min="1" max="10">
+                    </label>
+
+                    <label class="block" for="colsBInput">Broj stupaca:
+                        <input type="number" id="colsBInput" value="3" min="1" max="10">
+                    </label>
+                    <label for="colsB">
+                        <input type="range" id="colsB" value="3" min="1" max="10">
+                    </label>
+                </div>
+            </div>
+
+            <div class="result">
+                <h3>Rezultat:</h3>
+                <div id="result"></div>
+            </div>
+
+            <div class="operations">
+                <h4>Operacije s matricom A:</h4>
+                <button onclick="transposeMatrix('A')">Transponiraj A</button>
+                <button onclick="scalarMultiply('A')">Pomnoži A s brojem</button>
+                <button onclick="fillRandom('A')">Nasumično popuni A</button>
+                <button onclick="clearMatrix('A')">Izbriši A</button>
+                <button onclick="determinant('A')">Determinanta A</button>
+                <button onclick="inverseMatrix('A')">Inverzija A</button>
+                <!--<button onclick="powerMatrix('A')">Power A</button>-->
+
+                <h4>Operacije s matricom B:</h4>
+                <button onclick="transposeMatrix('B')">Transponiraj B</button>
+                <button onclick="scalarMultiply('B')">Pomnoži B s brojem</button>
+                <button onclick="fillRandom('B')">Nasumično popuni B</button>
+                <button onclick="clearMatrix('B')">Izbriši B</button>
+                <button onclick="determinant('B')">Determinanta B</button>
+                <button onclick="inverseMatrix('B')">Inverzija B</button>
+                <!--<button onclick="powerMatrix('B')">Power B</button>-->
+
+                <h4>Operacije s dvije matrice:</h4>
+                <button onclick="addMatrices()">(A + B)</button>
+                <button onclick="subtractMatrices()">(A - B)</button>
+                <button onclick="multiplyMatrices()">(A × B)</button>
+
+                <h4>Ostale Operacije:</h4>
+                <button onclick="switchWindowTranslation()">Translacija</button>
+                <button onclick="switchWindowRotation()">Rotacija</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="traslation-window" class="hidden"> <!--Translacija-->
+        <button id="back" onclick="switchWindowCalc()">Natrag</button>
+        <div class="width2">
+            <h1>Kalkulator Matrica</h1>
+            <h3>Translacija točke</h3>
+            <div class="container-">
+                <div class="koordinate">
+                    <h4>Unesi koordinate točke:</h4>
+                    <label class="block" for="coordX">x: <input type="number" id="coordX" /></label>
+                    <label class="block" for="coordY">y: <input type="number" id="coordY" /></label>
+                </div>
+                <hr>
+                <div class="koordinate">
+                    <h4>Unesi pomak točke:</h4>
+                    <label>v = </label>
+                    <label for="i"><input type="number" id="i" /> i</label>
+                    <label for="j"><input type="number" id="j" /> j</label>
+                </div>
+            </div>
+            <div class="result">
+                <h3>Rezultat:</h3>
+                <div id="result-trans"></div>
+            </div>
+            <button onclick="translateMy()">Izračunaj</button>
+        </div>
+    </div>
+
+    <div id="rotation-window" class="hidden"> <!--Rotacija-->
+        <button id="back" onclick="switchWindowCalc()">Natrag</button>
+        <div class="width2">
+            <h1>Kalkulator Matrica</h1>
+            <h3>Rotacija točke</h3>
+            <div class="container-">
+                <div class="koordinate">
+                    <h4>Unesi koordinate točke:</h4>
+                    <label class="block" for="coordXr">x: <input type="number" id="coordXr" /></label>
+                    <label class="block" for="coordYr">y: <input type="number" id="coordYr" /></label>
+                </div>
+                <hr>
+                <label for="ishodiste">
+                    <h4 class="rot">Rotacija oko ishodišta: </h4><input type="checkbox" id="ishodiste" />
+                </label>
+                <div class="koordinate" id="saIshodistem">
+                    <h4>Unesi koordinate točke rotacije:</h4>
+                    <label class="block" for="coordXish">x: <input type="number" id="coordXish" /></label>
+                    <label class="block" for="coordYish">y: <input type="number" id="coordYish" /></label>
+                </div>
+                <hr>
+                <div class="koordinate">
+                    <label for="kut">
+                        <h4>Unesi kut rotacije:</h4>
+                        <input type="number" id="kut">
+                    </label>
+                </div>
+            </div>
+            <div class="result">
+                <h3>Rezultat:</h3>
+                <div id="result-rot"></div>
+            </div>
+            <button onclick="rotation()">Izračunaj</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

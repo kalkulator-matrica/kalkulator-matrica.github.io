@@ -94,7 +94,7 @@ function setMatrixValues(id, values) {
     inputs.forEach((input, index) => {
         const row = Math.floor(index / cols);
         const col = index % cols;
-        input.value = values[row][col];
+        input.value = (values[row][col]).toFixed(4);
     });
 }
 
@@ -109,7 +109,7 @@ function displayResult(matrix) {
         const rowElem = document.createElement("tr");
         row.forEach(value => {
             const cell = document.createElement("td");
-            cell.textContent = value.toFixed(2);
+            cell.textContent = value.toFixed(4);
             rowElem.appendChild(cell);
         });
         table.appendChild(rowElem);
@@ -128,14 +128,14 @@ function displayResultTrans(x, y) {
     const rowElemX = document.createElement("tr");
 
     const cellX = document.createElement("td");
-    cellX.textContent = "X: " + x.toFixed(2);
+    cellX.textContent = "X: " + x.toFixed(4);
     rowElemX.appendChild(cellX);
 
     table.appendChild(rowElemX);
     const rowElemY = document.createElement("tr");
 
     const cellY = document.createElement("td");
-    cellY.textContent = "Y: " + y.toFixed(2);
+    cellY.textContent = "Y: " + y.toFixed(4);
     rowElemY.appendChild(cellY);
 
     table.appendChild(rowElemY);
@@ -153,14 +153,14 @@ function displayResultRot(x, y) {
     const rowElemX = document.createElement("tr");
 
     const cellX = document.createElement("td");
-    cellX.textContent = "X: " + x.toFixed(2);
+    cellX.textContent = "X: " + x.toFixed(4);
     rowElemX.appendChild(cellX);
 
     table.appendChild(rowElemX);
     const rowElemY = document.createElement("tr");
 
     const cellY = document.createElement("td");
-    cellY.textContent = "Y: " + y.toFixed(2);
+    cellY.textContent = "Y: " + y.toFixed(4);
     rowElemY.appendChild(cellY);
 
     table.appendChild(rowElemY);
@@ -289,7 +289,7 @@ function inverseMatrix(id) {
             return calculateDeterminant(minor) * ((i + j) % 2 === 0 ? 1 : -1);
         })
     );
-    const result = adjugate[0].map((_, i) => adjugate.map(row => row[i])).map(row => row.map(value => (value / det).toFixed(2)));
+    const result = adjugate[0].map((_, i) => adjugate.map(row => row[i])).map(row => row.map(value => value / det));
     setMatrixValues(id, result);
     displayResult(result);
 }

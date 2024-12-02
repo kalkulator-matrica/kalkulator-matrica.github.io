@@ -231,7 +231,7 @@ hr{
     border: none;
     height: 3px;
     border-radius: 10px;
-    background-color: #FCFCFC;
+    background-color: var(--tipke);
 }
 input[type="checkbox"]{
     accent-color: var(--tipke);

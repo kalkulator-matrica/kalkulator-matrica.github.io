@@ -190,7 +190,7 @@ function transposeMatrix(id) {
 
 // Multiply matrix by a scalar
 function scalarMultiply(id) {
-    const scalar = parseFloat(prompt("Enter a scalar value:"));
+    const scalar = parseFloat(prompt("Unesi broj:"));
     if (isNaN(scalar)) {
         alert("Neispravni broj!");
         return;

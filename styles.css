@@ -1,8 +1,8 @@
 :root{
-    --pozadina: #BEBEBF;
-    --tekst: #FCFCFC;
-    --tipke: #9637A7;
-    --pozadina-el: #70FE9D;
+    --pozadina: #595f66;
+    --tekst: #333333;
+    --tipke: #2a9d8f;
+    --pozadina-el: #f4f1de;
 }
 body {
     font-family: Arial, sans-serif;
@@ -36,6 +36,10 @@ body {
     width: 80vw;
     margin-left: auto;
     margin-right: auto;
+}
+
+.bg{
+    color: var(--pozadina-el);
 }
 
 h1, h2, h3, h4 {
@@ -140,7 +144,7 @@ button {
 }
 
 button:hover {
-    background-color: #802090;
+    background-color: #007565;
 }
 
 
@@ -210,7 +214,6 @@ button:active {
 }
 
 .koordinate{
-    //background-color: black;
     padding: 5px;
     
 }

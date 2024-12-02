@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, Opera */
+div[class="matrix"] input::-webkit-outer-spin-button,
+div[class="matrix"] input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 :root{
     --pozadina: #595f66;
     --tekst: #333333;
@@ -71,7 +83,7 @@ h1, h2, h3, h4 {
 }
 
 .matrix-row input {
-    width: 50px;
+    width: 55px;
     height: 30px;
     text-align: center;
     margin: 3px;
@@ -150,7 +162,7 @@ button:hover {
 
 .result {
     margin-top: 20px;
-    padding: 10px;
+    padding: 10px 3vw;
     background-color: var(--pozadina-el);
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -167,28 +179,11 @@ button:hover {
 }
 
 .matrix-table td {
-
     border: 1px solid #bbb;
     padding: 8px;
     text-align: center;
     font-size: 14px;
-    background-color: #AF5ECE;
-}
-
-.matrix-table-translation{
-    margin: 10px auto;
-    border-collapse: collapse;
-    width: 100%;
-
-}
-
-.matrix-table-translation td {
-
-    border: 1px solid #bbb;
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #AF5ECE;
+    background-color: var(--tipke);
 }
 
 button:active {

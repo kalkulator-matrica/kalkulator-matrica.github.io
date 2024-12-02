@@ -55,7 +55,7 @@ function initializeMatrix(id, rows, cols) {
         for (let j = 0; j < cols; j++) {
             const input = document.createElement("input");
             input.type = "number";
-            input.value = 0;
+            input.value = '';
             input.className = `matrix-input-${id}`;
             row.appendChild(input);
         }
@@ -63,7 +63,7 @@ function initializeMatrix(id, rows, cols) {
     }
 }
 
-// Get matrix values from input fields
+// Get matrix values from input fields                                     /* */
 function getMatrixValues(id) {
     const inputs = document.querySelectorAll(`.matrix-input-${id}`);
     const rows = parseInt(document.getElementById(`rows${id}`).value);
@@ -72,6 +72,10 @@ function getMatrixValues(id) {
     for (let i = 0; i < rows; i++) {
         const row = [];
         for (let j = 0; j < cols; j++) {
+            if (isNaN(parseFloat(inputs[i * cols + j].value))) {  //if there is any missing values an alert is thrown
+                alert("Popuni matricu!");
+                return;
+            }
             row.push(parseFloat(inputs[i * cols + j].value));
         }
         values.push(row);
@@ -96,6 +100,7 @@ function setMatrixValues(id, values) {
 
 // Display result in a table format
 function displayResult(matrix) {
+
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
     const table = document.createElement("table");
@@ -118,7 +123,7 @@ function displayResultTrans(x, y) {
     resultDiv.innerHTML = "";
 
     const table = document.createElement("table");
-    table.className = "matrix-table-translation";
+    table.className = "matrix-table";
 
     const rowElemX = document.createElement("tr");
 
@@ -143,7 +148,7 @@ function displayResultRot(x, y) {
     resultDiv.innerHTML = "";
 
     const table = document.createElement("table");
-    table.className = "matrix-table-translation";
+    table.className = "matrix-table";
 
     const rowElemX = document.createElement("tr");
 
@@ -171,7 +176,7 @@ function displayResultRot(x, y) {
 // Clear all matrix values
 function clearMatrix(id) {
     const inputs = document.querySelectorAll(`.matrix-input-${id}`);
-    inputs.forEach(input => (input.value = 0));
+    inputs.forEach(input => (input.value = ''));
 }
 
 // Fill matrix with random values
@@ -330,10 +335,10 @@ function translateMy(id) {
 //rotation
 function rotation(id) {
     const x = parseFloat(document.getElementById("coordXr").value);
-    const y = parseFloat(document.getElementById("coordYr").value);
+    let y = parseFloat(document.getElementById("coordYr").value);
     const deg = parseFloat(document.getElementById("kut").value);
     let xs = parseFloat(document.getElementById("coordXish").value);
-    let ys = parseFloat(document.getElementById("coordXish").value);
+    let ys = parseFloat(document.getElementById("coordYish").value);
 
     if (checkbox.checked) {
         xs = 0;

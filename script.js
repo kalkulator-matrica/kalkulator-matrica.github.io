@@ -289,7 +289,7 @@ function inverseMatrix(id) {
             return calculateDeterminant(minor) * ((i + j) % 2 === 0 ? 1 : -1);
         })
     );
-    const result = adjugate[0].map((_, i) => adjugate.map(row => row[i])).map(row => row.map(value => value / det));
+    const result = adjugate[0].map((_, i) => adjugate.map(row => row[i])).map(row => row.map(value => (value / det).toFixed(2)));
     setMatrixValues(id, result);
     displayResult(result);
 }

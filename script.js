@@ -7,8 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setupSimetryIndicator("A");
     setupSimetryIndicator("B");
+
+    initialiseNumberInputMaxR("A");
+    initialiseNumberInputMaxR("B");
+    initialiseNumberInputMaxC("A");
+    initialiseNumberInputMaxC("B");
 });
 
+function initialiseNumberInputMaxR(id) {
+    const numberInput = document.getElementById(`rows${id}Input`);
+    numberInput.addEventListener('input', function () {
+        if (this.value > 10) {
+            this.value = 10;
+        }
+    });
+}
+function initialiseNumberInputMaxC(id) {
+    const numberInput = document.getElementById(`cols${id}Input`);
+    numberInput.addEventListener('input', function () {
+        if (this.value > 10) {
+            this.value = 10;
+        }
+    });
+}
 //simetrija
 function setupSimetryIndicator(id) {
     const container = document.getElementById(`matrix${id}`);

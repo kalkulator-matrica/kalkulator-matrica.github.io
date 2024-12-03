@@ -236,3 +236,14 @@ hr{
 input[type="checkbox"]{
     accent-color: var(--tipke);
 }
+
+.simetrija{
+    padding-bottom: 0px;
+    text-align: left;
+}
+.simetrija p{
+    display: inline;
+    color: var(--pozadina-el);
+    
+    margin: 7px 0 5px 5px;
+}

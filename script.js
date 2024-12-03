@@ -4,7 +4,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setupDimensionControls("A");
     setupDimensionControls("B");
+
+    setupSimetryIndicator("A");
+    setupSimetryIndicator("B");
 });
+
+//simetrija
+function setupSimetryIndicator(id) {
+    const container = document.getElementById(`matrix${id}`);
+    const sim = document.getElementById(`sim${id}`);
+    sim.textContent = 'da';
+    const observer = new MutationObserver(() => {
+        let r = document.getElementById(`rows${id}Input`).value;
+        let c = document.getElementById(`cols${id}Input`).value;
+        if (r != c) {
+            sim.textContent = 'ne';
+        } else {
+            sim.textContent = 'da';
+        }
+
+    });
+    observer.observe(container, { childList: true });
+}
+
+
+
 
 const checkbox = document.getElementById("ishodiste");
 

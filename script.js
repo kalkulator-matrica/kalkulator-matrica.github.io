@@ -27,8 +27,12 @@ function setupSimetryIndicator(id) {
     observer.observe(container, { childList: true });
 }
 
-
-
+//Clear result
+function clearResult() {
+    const cl = document.getElementById("clear");
+    displayResult([]);
+    cl.classList.add("hidden");
+}
 
 const checkbox = document.getElementById("ishodiste");
 
@@ -124,6 +128,7 @@ function setMatrixValues(id, values) {
 
 // Display result in a table format
 function displayResult(matrix) {
+    const cl = document.getElementById("clear");
 
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
@@ -139,6 +144,7 @@ function displayResult(matrix) {
         table.appendChild(rowElem);
     });
     resultDiv.appendChild(table);
+    cl.classList.remove("hidden");
 }
 
 //result for translation and rotation window

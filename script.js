@@ -286,7 +286,7 @@ function multiplyMatrices() {
     const A = getMatrixValues("A");
     const B = getMatrixValues("B");
     if (A[0].length !== B.length) {
-        alert("Matrice moraju biti komplementarne za množenje!");
+        alert("Matrice moraju biti ulančane za množenje!");
         return;
     }
     const result = A.map(row =>

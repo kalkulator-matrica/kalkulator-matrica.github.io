@@ -1,18 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
     initializeMatrix("A", 3, 3);
     initializeMatrix("B", 3, 3);
+    initializeMatrix("C", 1, 2);
+    initializeMatrix("C", 3, 4);
 
     setupDimensionControls("A");
     setupDimensionControls("B");
+    setupDimensionControls("C");
+
 
     setupSimetryIndicator("A");
     setupSimetryIndicator("B");
 
     initialiseNumberInputMaxR("A");
     initialiseNumberInputMaxR("B");
+
+    initMatrixC();
+
     initialiseNumberInputMaxC("A");
     initialiseNumberInputMaxC("B");
 });
+
+function initMatrixC() {
+    const numberInput2 = document.getElementById(`colsCInput`);
+    const numberInput = document.getElementById(`rowsCInput`);
+
+    numberInput.addEventListener('input', function () {
+        if (numberInput.value > 10) {
+            numberInput.value = 10;
+        }
+
+        let tmp = parseInt(numberInput.value) + 1;
+        numberInput2.value = tmp;
+    });
+}
 
 function initialiseNumberInputMaxR(id) {
     const numberInput = document.getElementById(`rows${id}Input`);
@@ -121,7 +142,7 @@ function getMatrixValues(id) {
     for (let i = 0; i < rows; i++) {
         const row = [];
         for (let j = 0; j < cols; j++) {
-            if (isNaN(parseFloat(inputs[i * cols + j].value))) {  //if there is any missing values an alert is thrown
+            if (isNaN(parseFloat(inputs[i * cols + j].value))) {  //if there is any missing values alert
                 alert("Popuni matricu!");
                 return;
             }
@@ -147,19 +168,31 @@ function setMatrixValues(id, values) {
     });
 }
 
-// Display result in a table format
 function displayResult(matrix) {
     const cl = document.getElementById("clear");
-
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
+
+    // Handle string messages
+    if (typeof matrix[0][0] !== 'number') {
+        const message = document.createElement("div");
+        message.textContent = matrix[0][0];
+        resultDiv.appendChild(message);
+        cl.classList.remove("hidden");
+        return;
+    }
+
+    // Handle numerical results
     const table = document.createElement("table");
     table.className = "matrix-table";
     matrix.forEach(row => {
         const rowElem = document.createElement("tr");
         row.forEach(value => {
             const cell = document.createElement("td");
-            cell.textContent = value.toFixed(4);
+            // Check if value is numeric before using toFixed
+            cell.textContent = typeof value === 'number'
+                ? value.toFixed(4)
+                : value.toString();
             rowElem.appendChild(cell);
         });
         table.appendChild(rowElem);
@@ -167,6 +200,7 @@ function displayResult(matrix) {
     resultDiv.appendChild(table);
     cl.classList.remove("hidden");
 }
+
 
 //result for translation and rotation window
 function displayResultTrans(x, y) {
@@ -357,11 +391,18 @@ function switchWindowRotation(id) {
     document.getElementById("rotation-window").classList.remove("hidden");
 }
 
+//switch to jednadba
+function switchJednadba(id) {
+    document.getElementById("calculator-window").classList.add("hidden");
+    document.getElementById("jednadbe").classList.remove("hidden");
+}
+
 //back to calc window
 function switchWindowCalc(id) {
     document.getElementById("calculator-window").classList.remove("hidden");
     document.getElementById("traslation-window").classList.add("hidden");
     document.getElementById("rotation-window").classList.add("hidden");
+    document.getElementById("jednadbe").classList.add("hidden");
 }
 
 //translation
@@ -440,3 +481,111 @@ function multiplyMatricesHelper(A, B) {
     );
 }
 
+function solveSystem() {
+    const matrix = getMatrixValues("C");
+    if (!matrix) return;
+    const numVariables = matrix.length;
+    const numCols = matrix[0].length;
+    if (numCols !== numVariables + 1) {
+        displayEquationResult("Matrica C mora imati broj stupaca = broj redova + 1");
+        return;
+    }
+    const augmented = matrix.map(row => [...row]);
+    gaussianElimination(augmented);
+    for (let i = 0; i < numVariables; i++) {
+        const allZeroCoefficients = augmented[i]
+            .slice(0, -1)
+            .every(val => Math.abs(val) < 1e-8);
+
+        if (allZeroCoefficients && Math.abs(augmented[i][numVariables]) > 1e-8) {
+            displayEquationResult("Nema rješenja (kontradikcija)");
+            return;
+        }
+    }
+    const solutions = new Array(numVariables).fill(null);
+    let rank = 0;
+    for (let i = numVariables - 1; i >= 0; i--) {
+        let pivotCol = -1;
+        for (let j = 0; j < numVariables; j++) {
+            if (Math.abs(augmented[i][j]) > 1e-8) {
+                pivotCol = j;
+                break;
+            }
+        }
+        if (pivotCol === -1) continue;
+        rank++;
+        let sum = 0;
+        for (let j = pivotCol + 1; j < numVariables; j++) {
+            sum += augmented[i][j] * (solutions[j] || 0);
+        }
+        solutions[pivotCol] = (augmented[i][numVariables] - sum) / augmented[i][pivotCol];
+    }
+    if (rank < numVariables) {
+        displayEquationResult("Beskonačno mnogo rješenja");
+    } else {
+        const formattedSolutions = solutions.map(s =>
+            Math.abs(s) < 1e-10 ? 0 : s
+        );
+        displayEquationResult(formattedSolutions);
+    }
+}
+
+
+
+function gaussianElimination(matrix) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    let pivotRow = 0;
+
+    for (let col = 0; col < cols - 1 && pivotRow < rows; col++) {
+        let maxRow = pivotRow;
+        for (let i = pivotRow; i < rows; i++) {
+            if (Math.abs(matrix[i][col]) > Math.abs(matrix[maxRow][col])) {
+                maxRow = i;
+            }
+        }
+        if (Math.abs(matrix[maxRow][col]) < 1e-8) continue;
+        [matrix[pivotRow], matrix[maxRow]] = [matrix[maxRow], matrix[pivotRow]];
+        const pivotVal = matrix[pivotRow][col];
+        for (let j = col; j < cols; j++) {
+            matrix[pivotRow][j] /= pivotVal;
+        }
+        for (let i = 0; i < rows; i++) {
+            if (i !== pivotRow) {
+                const factor = matrix[i][col];
+                for (let j = col; j < cols; j++) {
+                    matrix[i][j] -= factor * matrix[pivotRow][j];
+                }
+            }
+        }
+        pivotRow++;
+    }
+}
+
+function displayEquationResult(content) {
+    const resultDiv = document.getElementById("result-jednadbe");
+    const clearBtn = document.getElementById("clear-jednadbe");
+
+    resultDiv.innerHTML = "";
+    clearBtn.classList.remove("hidden");
+
+    if (typeof content === "string") {
+        resultDiv.textContent = content;
+    } else {
+        const table = document.createElement("table");
+        table.className = "matrix-table";
+        content.forEach(solution => {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+            cell.textContent = solution.toFixed(4);
+            row.appendChild(cell);
+            table.appendChild(row);
+        });
+        resultDiv.appendChild(table);
+    }
+}
+
+function clearEquationResult() {
+    document.getElementById("result-jednadbe").innerHTML = "";
+    document.getElementById("clear-jednadbe").classList.add("hidden");
+}

@@ -100,6 +100,7 @@
                 <h4>Ostale Operacije:</h4>
                 <button onclick="switchWindowTranslation()">Translacija</button>
                 <button onclick="switchWindowRotation()">Rotacija</button>
+                <button onclick="switchJednadba()">Jednadžbe</button>
             </div>
 
         </div>
@@ -169,6 +170,38 @@
         </div>
     </div>
 
+
+    <div id="jednadbe" class="hidden"> <!--jednadbe-->
+        <button id="back" onclick="switchWindowCalc()">Natrag</button>
+        <div class="matrix-container">
+            <div id="matrixC" class="matrix"></div>
+        </div>
+        <div class="dimension-controls-container">
+            <div class="matrix-controls">
+                <label class="block" for="rowsCInput">Broj nepoznanica:
+                    <input type="number" id="rowsCInput" value="3" min="1" max="10">
+                </label>
+                <div class="hidden">
+                    <label for="rowsC">
+                        <input type="range" id="rowsC" value="3" min="1" max="10">
+                    </label>
+                    <label class="block" for="colsCInput">Broj stupaca:
+                        <input type="number" id="colsCInput" value="4" min="1" max="11">
+                    </label>
+                    <label for="colsC">
+                        <input type="range" id="colsC" value="4" min="1" max="11">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="result" id="res3">
+            <h3>Rezultat sustava:</h3>
+            <div id="result-jednadbe"></div>
+            <button onclick="clearEquationResult()" class="hidden" id="clear-jednadbe">Clear</button>
+        </div>
+        <button onclick="solveSystem()">Riješi Sustav</button>
+
+    </div>
     <script src="script.js"></script>
 
 </body>

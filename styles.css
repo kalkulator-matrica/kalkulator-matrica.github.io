@@ -1,21 +1,23 @@
 /* Chrome, Safari, Edge, Opera */
 div[class="matrix"] input::-webkit-outer-spin-button,
 div[class="matrix"] input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
-:root{
+:root {
     --pozadina: #595f66;
     --tekst: #333333;
     --tipke: #2a9d8f;
     --pozadina-el: #f4f1de;
 }
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -25,36 +27,40 @@ body {
     padding: 20px;
 }
 
-.container-{
+.container- {
     background-color: var(--pozadina-el);
     padding: 20px;
     margin: 5px;
     border-radius: 8px;
 }
 
-.block{
+.block {
     display: block;
-    margin:10px auto;
+    margin: 10px auto;
 }
 
-.width{
+.width {
     max-width: 1334px;
     width: 90vw;
     margin-left: auto;
     margin-right: auto;
 }
-.width2{
+
+.width2 {
     max-width: 400px;
     width: 80vw;
     margin-left: auto;
     margin-right: auto;
 }
 
-.bg{
+.bg {
     color: var(--pozadina-el);
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     margin-bottom: 10px;
 }
 
@@ -104,7 +110,7 @@ h1, h2, h3, h4 {
     margin: 20px auto 20px auto;
 }
 
-.matrix-controls{
+.matrix-controls {
     background-color: var(--pozadina-el);
     display: block;
     border: 1px solid #ccc;
@@ -190,30 +196,31 @@ button:active {
     transform: scale(0.95);
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
-#back{
+#back {
     margin-left: 0;
     margin-right: 100vw;
-    background-color: rgb(210,10,10);
+    background-color: rgb(210, 10, 10);
     padding: 5px 10px;
     box-shadow: none;
     border-radius: 2px;
     font-size: 12px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 #back:hover {
-    background-color: rgb(255,0,0);
+    background-color: rgb(255, 0, 0);
 }
 
-.koordinate{
+.koordinate {
     padding: 5px;
-    
+
 }
 
-.koordinate input{
+.koordinate input {
     width: 80px;
     margin: 0 10px;
     padding: 5px;
@@ -222,33 +229,44 @@ button:active {
     border-radius: 4px;
 }
 
-.rot{
+.rot {
     display: inline;
-    margin:10px 5px 10px 0;
+    margin: 10px 5px 10px 0;
 }
 
-hr{
+hr {
     border: none;
     height: 3px;
     border-radius: 10px;
     background-color: var(--tipke);
 }
-input[type="checkbox"]{
+
+input[type="checkbox"] {
     accent-color: var(--tipke);
 }
 
-.simetrija{
+.simetrija {
     padding-bottom: 0px;
     text-align: left;
 }
-.simetrija p{
+
+.simetrija p {
     display: inline;
     color: var(--pozadina-el);
-    
+
     margin: 7px 0 5px 5px;
 }
 
-.simetrija h2{
+.simetrija h2 {
     padding-left: 5px;
     color: var(--pozadina-el);
+}
+
+#jednadbe {
+    text-align: center;
+}
+
+#res3 {
+    max-width: 200px;
+    padding: 16px;
 }
